@@ -126,14 +126,14 @@
 </header>
 
 <!-- ============ MOBILE MENU OVERLAY ============ -->
-<div class="fixed inset-0 z-40 bg-surface/95 backdrop-blur-lg hidden flex-col items-center justify-center gap-8 lg:hidden" id="mobile-menu">
-<nav class="flex flex-col items-center gap-6 text-center">
-<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#yachts" onclick="toggleMenu()">Подбор яхты</a>
-<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#team" onclick="toggleMenu()">Команда</a>
-<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#tours-preview" onclick="toggleMenu()">Календарь туров</a>
-<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#destinations" onclick="toggleMenu()">Направления</a>
-<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#payments" onclick="toggleMenu()">Оплата</a>
-<a class="mt-4 inline-flex bg-primary text-on-primary px-8 py-3 rounded-xl text-base font-bold hover:bg-primary-container transition-all" href="#lead" onclick="toggleMenu()">Подобрать яхту</a>
+<div class="fixed inset-0 z-40 bg-surface/95 backdrop-blur-lg flex flex-col items-center justify-center gap-5 lg:hidden opacity-0 pointer-events-none transition-all duration-300" id="mobile-menu" style="display:none">
+<nav class="flex flex-col items-center gap-4 text-center">
+<a class="text-lg font-headline text-primary hover:text-secondary transition-colors" href="#yachts" onclick="toggleMenu()">Подбор яхты</a>
+<a class="text-lg font-headline text-primary hover:text-secondary transition-colors" href="#team" onclick="toggleMenu()">Команда</a>
+<a class="text-lg font-headline text-primary hover:text-secondary transition-colors" href="#tours-preview" onclick="toggleMenu()">Календарь туров</a>
+<a class="text-lg font-headline text-primary hover:text-secondary transition-colors" href="#destinations" onclick="toggleMenu()">Направления</a>
+<a class="text-lg font-headline text-primary hover:text-secondary transition-colors" href="#payments" onclick="toggleMenu()">Оплата</a>
+<a class="mt-3 inline-flex bg-primary text-on-primary px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-primary-container transition-all" href="#lead" onclick="toggleMenu()">Подобрать яхту</a>
 </nav>
 </div>
 
@@ -719,12 +719,17 @@
   function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
     const icon = document.getElementById('burger-icon');
-    if (menu.style.display === 'flex') {
-      menu.style.display = 'none';
+    const isOpen = menu.style.display === 'flex';
+    if (isOpen) {
+      menu.classList.add('opacity-0', 'pointer-events-none');
+      menu.classList.remove('opacity-100');
       icon.textContent = 'menu';
       document.body.style.overflow = '';
+      setTimeout(() => { menu.style.display = 'none'; }, 300);
     } else {
       menu.style.display = 'flex';
+      menu.classList.remove('opacity-0', 'pointer-events-none');
+      menu.classList.add('opacity-100');
       icon.textContent = 'close';
       document.body.style.overflow = 'hidden';
     }
