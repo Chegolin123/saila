@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Календарь туров · SAILA all.yachts — Маршруты с датами</title>
+  <meta name="description" content="Календарь яхтенных туров с фильтрацией по месяцам и направлениям. Присоединяйтесь к сборным турам или закажите индивидуальный маршрут.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .page-hero {
+      padding: 160px 0 60px;
+      background: linear-gradient(180deg, var(--navy-900), var(--navy-800));
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(212,165,116,0.12), transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(212,165,116,0.08), transparent 50%);
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+
+    .filters-bar {
+      background: var(--navy-800);
+      border-top: 1px solid var(--navy-600);
+      border-bottom: 1px solid var(--navy-600);
+      padding: var(--space-md) 0;
+      position: sticky;
+      top: 72px;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+    }
+    .filters-row { display: flex; gap: var(--space-lg); align-items: center; flex-wrap: wrap; }
+    .filter-group { display: flex; gap: var(--space-sm); flex-wrap: wrap; align-items: center; }
+    .filter-group__label {
+      font-size: var(--fs-micro); color: var(--white-50);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-right: var(--space-xs);
+    }
+    .filter-chip {
+      padding: 8px 16px;
+      border: 1px solid var(--white-12);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-small); font-weight: 500;
+      color: var(--white-70); background: transparent;
+      cursor: pointer; transition: all var(--dur-fast);
+    }
+    .filter-chip:hover { border-color: var(--white-50); color: var(--white); }
+    .filter-chip.active { background: var(--sand-300); border-color: var(--sand-300); color: var(--navy-900); }
+
+    /* Шаблон тура (подробный) */
+    .tour-detail {
+      background: var(--navy-700);
+      border: 1px solid var(--navy-600);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-2xl);
+    }
+    .tour-detail__hero {
+      aspect-ratio: 21/9;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .tour-detail__hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,22,40,0.3) 0%, rgba(10,22,40,0.85) 100%);
+    }
+    .tour-detail__hero-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: var(--space-xl);
+    }
+    .tour-detail__loc {
+      color: var(--sand-300);
+      font-size: var(--fs-small);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tour-detail__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-h1);
+      color: var(--white);
+      max-width: 700px;
+      line-height: 1.1;
+    }
+    .tour-detail__body {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--space-xl);
+      padding: var(--space-xl);
+    }
+    .tour-detail__main h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      color: var(--white);
+      margin: var(--space-lg) 0 var(--space-md);
+    }
+    .tour-detail__main h3:first-child { margin-top: 0; }
+    .tour-detail__main p {
+      color: var(--white-70);
+      font-size: var(--fs-small);
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+    }
+    .route-list { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-md); }
+    .route-stop {
+      display: flex; gap: var(--space-md); align-items: flex-start;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--white-08);
+    }
+    .route-stop__day {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      color: var(--sand-300);
+      min-width: 60px;
+      line-height: 1;
+    }
+    .route-stop__info strong { color: var(--white); display: block; margin-bottom: 4px; font-weight: 600; }
+    .route-stop__info span { color: var(--white-50); font-size: var(--fs-small); }
+
+    .included-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+    .included-item {
+      display: flex; align-items: center; gap: var(--space-sm);
+      font-size: var(--fs-small); color: var(--white-90);
+      padding: var(--space-sm);
+      background: var(--navy-800);
+      border-radius: var(--radius-md);
+    }
+    .included-item svg { color: var(--success); width: 18px; height: 18px; flex-shrink: 0; }
+    .included-item.no { color: var(--white-50); }
+    .included-item.no svg { color: var(--graphite-500); }
+
+    /* Sidebar booking */
+    .booking-card {
+      background: var(--navy-900);
+      border: 1px solid var(--navy-600);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      position: sticky;
+      top: 140px;
+    }
+    .booking-card__price {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--sand-300);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .booking-card__price-sub { font-size: var(--fs-small); color: var(--white-50); margin-bottom: var(--space-md); }
+    .booking-info {
+      display: grid; gap: var(--space-sm);
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--white-08);
+      border-bottom: 1px solid var(--white-08);
+      margin-bottom: var(--space-md);
+    }
+    .booking-info__row {
+      display: flex; justify-content: space-between;
+      font-size: var(--fs-small);
+    }
+    .booking-info__row .label { color: var(--white-50); }
+    .booking-info__row .value { color: var(--white); font-weight: 500; }
+    .spots-bar {
+      margin-bottom: var(--space-md);
+      padding: var(--space-sm);
+      background: rgba(74,222,128,0.08);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-small);
+      color: var(--success);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .organizer-card {
+      display: flex; gap: var(--space-md); align-items: center;
+      padding: var(--space-md);
+      background: var(--navy-800);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-md);
+    }
+    .organizer-card__avatar {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-full);
+      background-size: cover; background-position: center;
+      flex-shrink: 0;
+    }
+    .organizer-card__name { color: var(--white); font-weight: 600; font-size: var(--fs-small); }
+    .organizer-card__role { color: var(--white-50); font-size: var(--fs-micro); }
+
+    @media (max-width: 1024px) {
+      .tour-detail__body { grid-template-columns: 1fr; }
+      .booking-card { position: relative; top: 0; }
+    }
+    @media (max-width: 768px) {
+      .tour-detail__hero { aspect-ratio: 4/3; }
+      .tour-detail__title { font-size: var(--fs-h2); }
+      .included-list { grid-template-columns: 1fr; }
+      .filters-bar { position: relative; top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="../index.html" class="logo">
+        <span class="logo__mark">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 4L34 32H6L20 4Z" stroke="#E8C896" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M20 4V32M20 32L12 38M20 32L28 38" stroke="#E8C896" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="2" fill="#E8C896"/>
+          </svg>
+        </span>
+        <span>all.yachts<span class="logo__sub" style="display:block">Saila</span></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html#yachts" class="nav__link">Подбор яхты</a></li>
+        <li><a href="team.html" class="nav__link">Команда</a></li>
+        <li><a href="tours.html" class="nav__link">Календарь туров</a></li>
+        <li><a href="../index.html#destinations" class="nav__link">Направления</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="../index.html#lead" class="btn btn--primary">Подобрать яхту</a>
+        <button class="nav__toggle" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Календарь туров</span>
+    <h1 style="font-size:var(--fs-h1);color:var(--white);margin-bottom:var(--space-md)">Готовые маршруты<br>с датами отправления</h1>
+    <p class="lead" style="max-width:560px">Присоединяйтесь к сборным турам или закажите индивидуальный маршрут. Каждый тур ведёт организатор, которого мы знаем лично.</p>
+  </div>
+</section>
+
+<!-- FILTERS BAR -->
+<div class="filters-bar">
+  <div class="container">
+    <div class="filters-row">
+      <div class="filter-group">
+        <span class="filter-group__label">Месяц</span>
+        <button class="filter-chip active" data-filter="month" data-value="all">Все</button>
+        <button class="filter-chip" data-filter="month" data-value="oct">Окт</button>
+        <button class="filter-chip" data-filter="month" data-value="nov">Ноя</button>
+        <button class="filter-chip" data-filter="month" data-value="dec">Дек</button>
+        <button class="filter-chip" data-filter="month" data-value="jan">Янв</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-group__label">Регион</span>
+        <button class="filter-chip active" data-filter="region" data-value="all">Все</button>
+        <button class="filter-chip" data-filter="region" data-value="turkey">🇹🇷 Турция</button>
+        <button class="filter-chip" data-filter="region" data-value="greece">🇬🇷 Греция</button>
+        <button class="filter-chip" data-filter="region" data-value="croatia">🇭🇷 Хорватия</button>
+        <button class="filter-chip" data-filter="region" data-value="caribbean">🏝 Карибы</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-group__label">Тип</span>
+        <button class="filter-chip active" data-filter="type" data-value="all">Все</button>
+        <button class="filter-chip" data-filter="type" data-value="sail">Парусная</button>
+        <button class="filter-chip" data-filter="type" data-value="catamaran">Катамаран</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOURS -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="results-bar" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-xl);padding-top:var(--space-lg)">
+      <div class="results-count" style="font-size:var(--fs-small);color:var(--white-50)">Показано <strong style="color:var(--white)">6 туров</strong> · ближайшие 3 месяца</div>
+    </div>
+
+    <!-- ШАБЛОН ТУРА (подробный, выделенный) -->
+    <article class="tour-detail reveal">
+      <div class="tour-detail__hero" style="background-image:url('https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=1600&q=80')">
+        <div class="tour-detail__hero-overlay"></div>
+        <div class="tour-detail__hero-content">
+          <div class="tour-detail__loc">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Хорватия · Дубровник → Сплит
+          </div>
+          <h2 class="tour-detail__title">7 дней под парусами по Далмации</h2>
+        </div>
+      </div>
+
+      <div class="tour-detail__body">
+        <div class="tour-detail__main">
+          <h3>О маршруте</h3>
+          <p>Классический дальматинский маршрут вдоль одного из самых живописных побережий Адриатики. Дубровник, Хвар, Корчула, Брач — острова с венецианской архитектурой, бирюзовыми бухтами и местной кухней. Катамаран Lagoon 42, капитан и хостес включены.</p>
+
+          <h3>Программа по дням</h3>
+          <div class="route-list">
+            <div class="route-stop">
+              <div class="route-stop__day">Д.1</div>
+              <div class="route-stop__info">
+                <strong>Дубровник · ACI Marina</strong>
+                <span>Заселение, брифинг, ужин в Старом городе</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.2</div>
+              <div class="route-stop__info">
+                <strong>Шипаново → Колочеп</strong>
+                <span>Элафитские острова, дикие бухты, снорклинг</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.3</div>
+              <div class="route-stop__info">
+                <strong>Корчула</strong>
+                <span>«Маленький Дубровник», дегустация местных вин Grk</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.4</div>
+              <div class="route-stop__info">
+                <strong>Хвар</strong>
+                <span>Самый солнечный остров, Pakleni Islands, ночной жизни</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.5</div>
+              <div class="route-stop__info">
+                <strong>Вис</strong>
+                <span>Скрытая жемчужина, Blue Cave на Бишево</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.6</div>
+              <div class="route-stop__info">
+                <strong>Брач · Златни Рат</strong>
+                <span>Легендарный пляж-коса, серфинг, закат</span>
+              </div>
+            </div>
+            <div class="route-stop">
+              <div class="route-stop__day">Д.7</div>
+              <div class="route-stop__info">
+                <strong>Сплит</strong>
+                <span>Высадка, дворец Диоклетиана, прощальный ужин</span>
+              </div>
+            </div>
+          </div>
+
+          <h3>Что включено</h3>
+          <div class="included-list">
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Катамаран Lagoon 42</div>
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Капитан + хостес</div>
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Постельное бельё, полотенца</div>
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Страховка яхты</div>
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> WiFi на борту</div>
+            <div class="included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Финальная уборка</div>
+            <div class="included-item no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg> Питание (по желанию)</div>
+            <div class="included-item no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg> Марина + топливо</div>
+          </div>
+
+          <h3>Организатор</h3>
+          <div class="organizer-card">
+            <div class="organizer-card__avatar" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80')"></div>
+            <div>
+              <div class="organizer-card__name">Алексей Морозов · SAILA</div>
+              <div class="organizer-card__role">Капитан · 45 000 миль · 87 чартеров</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR BOOKING -->
+        <aside class="booking-card">
+          <div class="booking-card__price">2 480 €</div>
+          <div class="booking-card__price-sub">за каюту / 7 ночей</div>
+
+          <div class="booking-info">
+            <div class="booking-info__row"><span class="label">Даты</span><span class="value">12–18 окт</span></div>
+            <div class="booking-info__row"><span class="label">Длительность</span><span class="value">7 дней</span></div>
+            <div class="booking-info__row"><span class="label">Яхта</span><span class="value">Lagoon 42</span></div>
+            <div class="booking-info__row"><span class="label">Кают</span><span class="value">4 (двусп.)</span></div>
+            <div class="booking-info__row"><span class="label">Марина</span><span class="value">Дубровник ACI</span></div>
+          </div>
+
+          <div class="spots-bar">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>
+            Осталось 4 места из 8
+          </div>
+
+          <a href="https://t.me/Kval_saila_bot" target="_blank" class="btn btn--primary" style="width:100%;margin-bottom:var(--space-sm)">Забронировать место</a>
+          <button class="btn btn--ghost" style="width:100%">Задать вопрос</button>
+
+          <div style="margin-top:var(--space-md);font-size:var(--fs-micro);color:var(--white-50);text-align:center">
+            Предоплата 30% · возврат за 30 дней<br>
+            Оплата: РФ / Мир / USDT / наличные
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <!-- Остальные туры (сетка) -->
+    <h2 style="font-family:var(--font-display);font-size:var(--fs-h2);color:var(--white);margin:var(--space-2xl) 0 var(--space-xl)">Другие туры</h2>
+
+    <div class="tours-grid">
+      <div class="tour-card reveal">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?w=800&q=80')">
+          <div class="tour-card__date"><strong>28</strong>ОКТ</div>
+          <div class="tour-card__spots">● 2 места</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Турция · Фетхие</div>
+          <div class="tour-card__title">Закрытие сезона в бирюзовой лагуне</div>
+          <div class="tour-card__info"><span>7 дней</span><span>10 мест</span><span>Парусная</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 1 980 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80')">
+          <div class="tour-card__date"><strong>15</strong>НОЯ</div>
+          <div class="tour-card__spots">● 6 мест</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Греция · Киклады</div>
+          <div class="tour-card__title">Острова богов: Санторини и Миконос</div>
+          <div class="tour-card__info"><span>10 дней</span><span>12 мест</span><span>Катамаран</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 3 200 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800&q=80')">
+          <div class="tour-card__date"><strong>05</strong>ДЕК</div>
+          <div class="tour-card__spots">● 8 мест</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Италия · Сицилия</div>
+          <div class="tour-card__title">Эолийские острова и вулкан Стромболи</div>
+          <div class="tour-card__info"><span>7 дней</span><span>8 мест</span><span>Парусная</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 2 700 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1518544866330-95a8b91b0205?w=800&q=80')">
+          <div class="tour-card__date"><strong>18</strong>ДЕК</div>
+          <div class="tour-card__spots">● 3 места</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Карибы · Британские Виргинины</div>
+          <div class="tour-card__title">Новый год на Карибах: BVI</div>
+          <div class="tour-card__info"><span>10 дней</span><span>10 мест</span><span>Катамаран</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 4 500 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80')">
+          <div class="tour-card__date"><strong>10</strong>ЯНВ</div>
+          <div class="tour-card__spots">● 5 мест</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Таиланд · Пхукет</div>
+          <div class="tour-card__title">Андаманское море: Пхи-Пхи и Ланта</div>
+          <div class="tour-card__info"><span>9 дней</span><span>10 мест</span><span>Катамаран</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 2 900 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-card__img" style="background-image:url('https://images.unsplash.com/photo-1589412132600-6f0a02538a45?w=800&q=80')">
+          <div class="tour-card__date"><strong>22</strong>ЯНВ</div>
+          <div class="tour-card__spots">● 7 мест</div>
+        </div>
+        <div class="tour-card__body">
+          <div class="tour-card__loc">Сейшелы · Маэ</div>
+          <div class="tour-card__title">Сейшельские острова: внутренний рай</div>
+          <div class="tour-card__info"><span>10 дней</span><span>8 мест</span><span>Катамаран</span></div>
+          <div class="tour-card__footer">
+            <div class="tour-card__price">от 3 800 €<small>за каюту</small></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8C896" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B2B для организаторов -->
+    <div class="tg-banner reveal" style="margin-top:var(--space-3xl)">
+      <div class="tg-banner__content">
+        <span class="eyebrow">B2B экосистема</span>
+        <h2 class="tg-banner__title">Вы организатор<br>туров?</h2>
+        <p class="tg-banner__text">Разместите свой тур в нашем календаре по готовому шаблону. Заполните бриф-анкету — мы перенесём контент на страницу. Получайте заявки от проверенных клиентов.</p>
+        <a href="https://t.me/Kval_saila_bot" target="_blank" class="btn btn--primary">Запросить бриф-анкету</a>
+      </div>
+      <div class="tg-banner__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="../index.html" class="logo">
+          <span class="logo__mark">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M20 4L34 32H6L20 4Z" stroke="#E8C896" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M20 4V32M20 32L12 38M20 32L28 38" stroke="#E8C896" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="20" r="2" fill="#E8C896"/>
+            </svg>
+          </span>
+          <span style="color:var(--white)">all.yachts<span class="logo__sub" style="display:block">Saila</span></span>
+        </a>
+        <p class="footer__brand-text">Профессиональный хаб для аренды яхт. С нами всё будет чётко и без сюрпризов.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="../index.html#yachts">Подбор яхты</a></li>
+          <li><a href="team.html">Команда</a></li>
+          <li><a href="tours.html">Календарь туров</a></li>
+          <li><a href="../index.html#destinations">Направления</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Клиентам</h4>
+        <ul>
+          <li><a href="../index.html#payments">Способы оплаты</a></li>
+          <li><a href="../index.html#trust">Почему мы</a></li>
+          <li><a href="../index.html#lead">Заявка</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="https://t.me/charter_yachts" target="_blank">Telegram-канал</a></li>
+          <li><a href="https://t.me/Kval_saila_bot" target="_blank">Бот подбора</a></li>
+          <li><a href="mailto:hello@all.yachts">hello@all.yachts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2026 all.yachts · Saila. Все права защищены.</div>
+      <div>Сделано с любовью к морю ⚓</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+
+  document.querySelectorAll('.filter-group').forEach(group => {
+    group.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

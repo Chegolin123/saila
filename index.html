@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAILA · all.yachts — Аренда яхт под ключ | Капитаны, туры, чартер</title>
+<meta content="SAILA — профессиональный хаб для аренды яхт: флот, капитаны и организаторы туров. Экспертный подход действующих моряков. Бронирование яхт в Турции, Греции, Хорватии, Италии. Любая оплата: РФ, Мир, USDT, наличные." name="description"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-highest": "#e1e3e4",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#e5e2db",
+            "on-tertiary-fixed": "#1c1c18",
+            "surface-container-low": "#f2f4f5",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "primary-container": "#003366",
+            "primary-fixed": "#d5e3ff",
+            "primary": "#001e40",
+            "surface-variant": "#e1e3e4",
+            "on-background": "#191c1d",
+            "primary-fixed-dim": "#a7c8ff",
+            "surface-container-high": "#e6e8e9",
+            "surface-container": "#eceeef",
+            "on-secondary-container": "#745c00",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#a7c8ff",
+            "background": "#f8fafb",
+            "on-surface": "#191c1d",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#2d3132",
+            "surface-tint": "#3a5f94",
+            "outline": "#737780",
+            "secondary-fixed-dim": "#e9c349",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "outline-variant": "#c3c6d1",
+            "on-tertiary-container": "#9d9b95",
+            "on-secondary": "#ffffff",
+            "secondary": "#735c00",
+            "tertiary": "#1e1e1a",
+            "on-secondary-fixed-variant": "#574500",
+            "secondary-fixed": "#ffe088",
+            "on-primary-fixed": "#001b3c",
+            "on-tertiary-fixed-variant": "#474742",
+            "on-secondary-fixed": "#241a00",
+            "on-primary-container": "#799dd6",
+            "on-tertiary": "#ffffff",
+            "surface": "#f8fafb",
+            "tertiary-container": "#33332f",
+            "surface-dim": "#d8dadb",
+            "inverse-on-surface": "#eff1f2",
+            "on-primary-fixed-variant": "#1f477b",
+            "on-surface-variant": "#43474f",
+            "secondary-container": "#fed65b",
+            "surface-bright": "#f8fafb",
+            "error-container": "#ffdad6",
+            "sand": "#E8C896"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "headline": ["EB Garamond", "serif"],
+            "body": ["Manrope", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Manrope', sans-serif; background-color: #f8fafb; color: #191c1d; }
+    h1, h2, h3, .font-headline { font-family: 'EB Garamond', serif; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .btn-rounded { border-radius: 0.5rem; transition: all 0.3s ease; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-16" id="header">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-10 h-10 flex items-center justify-center">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 40">
+<path d="M20 4L34 32H6L20 4Z" stroke="#735c00" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M20 4V32" stroke="#735c00" stroke-width="2"></path>
+<path d="M20 32L12 38M20 32L28 38" stroke="#735c00" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="20" cy="20" fill="#735c00" r="2"></circle>
+</svg>
+</div>
+<div class="leading-none">
+<span class="text-xl font-bold tracking-tight text-primary block">all.yachts</span>
+<span class="text-[10px] uppercase tracking-[0.2em] text-secondary font-semibold">Saila</span>
+</div>
+</a>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#yachts">Подбор яхты</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#team">Команда</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#tours-preview">Календарь туров</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#destinations">Направления</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#payments">Оплата</a>
+</nav>
+<div class="flex items-center gap-4">
+<a class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-primary-container transition-all" href="#lead">
+        Подобрать яхту
+      </a>
+<button aria-label="Меню" class="lg:hidden p-2 text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ============ HERO ============ -->
+<section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+<!-- Background Image with Airy Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="High-end luxury sailing yacht" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1MJRjeIScqBkVpUH1Rwft3TAKRXuEl_SQwIyedI0K26MEXRVny9hNJL9ViGZCRzN7QVgYAVOPDsrbM_WMHn-kt4hWRIO7FQuSQALwOCrT2Tcy8gY-B7GjPKEYNLzMjmHo2T5TdCyMv8k333IE5W1-ne6J6RwrX0gFFPufzVakQ0zGLMNLemVgFfxtU9P1hQnJpCFc1ChAOYxBCSWB8Q1zepxO8n6lJ8r4zKwEonKsxImG5e-_dBfUXs4hW6r4NPMj05DP_BpRa54"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface/90 via-surface/40 to-transparent"></div>
+</div>
+<div class="container mx-auto px-6 md:px-16 relative z-10">
+<div class="max-w-2xl">
+<span class="inline-block px-4 py-1.5 rounded-full bg-secondary-container/30 text-on-secondary-container text-xs font-bold uppercase tracking-widest mb-6">
+        all.yachts · Экспертный чартер
+      </span>
+<h1 class="text-5xl md:text-7xl font-headline text-primary leading-[1.1] mb-8">
+        С нами всё будет <em class="italic text-secondary">чётко</em><br/>и без сюрпризов
+      </h1>
+<p class="text-lg md:text-xl text-on-surface-variant mb-10 leading-relaxed max-w-xl">
+        Профессиональный хаб, объединяющий флот, капитанов и организаторов туров.
+        Мы знаем техническое состояние лодок изнутри — а не по рендерам.
+      </p>
+<div class="flex flex-col sm:flex-row gap-4 mb-16">
+<a class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-xl font-bold hover:translate-y-[-2px] hover:shadow-xl transition-all" href="#lead">
+          Подобрать яхту
+          <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-primary/10 font-bold text-primary hover:bg-primary/5 transition-all" href="#tours-preview">
+          Календарь туров
+        </a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-primary/10">
+<div class="flex flex-col">
+<span class="text-3xl font-headline text-primary">1600+</span>
+<span class="text-sm text-on-surface-variant">яхт в базе</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline text-primary">25</span>
+<span class="text-sm text-on-surface-variant">стран</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline text-primary">8 лет</span>
+<span class="text-sm text-on-surface-variant">в чартере</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline text-primary">24/7</span>
+<span class="text-sm text-on-surface-variant">поддержка</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Float Search (Desktop only absolute positioning, mobile stays in flow) -->
+<div class="hidden xl:block absolute right-16 bottom-24 w-full max-w-md bg-white/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/40">
+<form class="space-y-6" id="lead">
+<h3 class="text-2xl font-headline text-primary">Быстрый поиск</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1.5 ml-1">Регион</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3 text-sm focus:ring-secondary focus:border-secondary transition-all" placeholder="Турция, Греция..." type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1.5 ml-1">Даты</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3 text-sm focus:ring-secondary" placeholder="Когда" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1.5 ml-1">Гостей</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3 text-sm focus:ring-secondary" min="1" placeholder="2–12" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1.5 ml-1">Тип яхты</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-lg p-3 text-sm focus:ring-secondary">
+<option>Парусная яхта</option>
+<option>Катамаран</option>
+<option>Моторная яхта</option>
+</select>
+</div>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-bold py-4 rounded-lg hover:shadow-lg hover:bg-on-secondary-container transition-all flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined">search</span>
+        Найти варианты
+      </button>
+</form>
+</div>
+</section>
+<!-- ============ ТЕХНИЧЕСКИЙ АУДИТ / ПОЧЕМУ ДОВЕРЯЮТ ============ -->
+<section class="py-24 bg-surface" id="trust">
+<div class="container mx-auto px-6 md:px-16">
+<div class="text-center max-w-3xl mx-auto mb-20 reveal">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Почему нам доверяют</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary mb-6">Экспертный подход<br/>действующих моряков</h2>
+<p class="text-on-surface-variant text-lg">Мы не просто агентство. Мы видим то, чего нет на фото, и решаем то, о чём другие молчат.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white p-8 rounded-2xl border border-outline-variant/30 hover:shadow-xl transition-all reveal">
+<div class="w-12 h-12 bg-primary/5 text-primary rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<h3 class="text-xl font-headline text-primary mb-3">Технический аудит</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Мы видим то, чего нет на фото. Знаем, у кого «уставшие» паруса, а у кого — идеальный сервис. Личный осмотр каждого судна.</p>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-outline-variant/30 hover:shadow-xl transition-all reveal" style="transition-delay: 100ms">
+<div class="w-12 h-12 bg-primary/5 text-primary rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<h3 class="text-xl font-headline text-primary mb-3">Прозрачный бюджет</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Полный расчёт до бронирования — топливо, стоянки, депозиты. Никаких доплат на месте. Вы знаете финальную сумму заранее.</p>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-outline-variant/30 hover:shadow-xl transition-all reveal" style="transition-delay: 200ms">
+<div class="w-12 h-12 bg-primary/5 text-primary rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h3 class="text-xl font-headline text-primary mb-3">Гибкость платежей</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Платите так, как удобно: карты РФ, Мир, USDT, наличные в марине, прямые инвойсы. Мы решаем вопрос валютных переводов за вас.</p>
+</div>
+<div class="bg-white p-8 rounded-2xl border border-outline-variant/30 hover:shadow-xl transition-all reveal" style="transition-delay: 300ms">
+<div class="w-12 h-12 bg-primary/5 text-primary rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined">support_agent</span>
+</div>
+<h3 class="text-xl font-headline text-primary mb-3">Безопасность 24/7</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Личное сопровождение и решение любых вопросов с чартерными компаниями в реальном времени. На связи в любой точке мира.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ НАПРАВЛЕНИЯ ============ -->
+<section class="py-24 bg-surface-container-low" id="destinations">
+<div class="container mx-auto px-6 md:px-16">
+<div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 reveal">
+<div class="max-w-xl">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Направления</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary">Где мы работаем</h2>
+</div>
+<p class="text-on-surface-variant max-w-xs md:text-right">25 стран, 1600+ проверенных яхт. От Средиземноморья до Кариб и Сейшел.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[600px]">
+<div class="md:col-span-8 relative group overflow-hidden rounded-2xl reveal">
+<img alt="Турция" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDezqhSuN3gIjkWaUV7HBvkWxnP0Ngjxm01EdqdFwLFx-GtcDrUiFnR-ctumY8_NgZSrnzPL28gZWfyXHpmaut9G7HBPVcnD_d_RfdllK58NET4s14iubuU6HsVzSFvontv1bLjG2lvMDAA7cxFv314A54iRTH0FFzC0Q3P8mraO6hxqmkaPCXamTMcsweLHZQlTXai-cayHAWmYYkQUTifqBVGjzov6hFZ0i9Mcnxc5Hgc0t32yBCIUnps1DlvRkI-yIxiHrlbKmw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<h3 class="text-3xl font-headline text-white mb-2">Турция</h3>
+<p class="text-white/80 text-sm">Фетхие · Гёчек · Бодрум · Мармарис</p>
+</div>
+<div class="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white">
+<span class="material-symbols-outlined">north_east</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 relative group overflow-hidden rounded-2xl reveal" style="transition-delay: 150ms">
+<img alt="Греция" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_ZRI4i5SnBnQp3TlZGHKX0PNDtf7ElUOQboHgPf1wrzpMqxJ_kSR5ZfloIRdyamSyZjLq03qUYrx0L5Jhc3YeWiYSv7djE6p5_IswEboXQAIDgD-V7paSW__O3Khs8Tr9FwX5GM3-CXWeqhGKZEjCrmkQ8bsq-h6mDRBDk6WMJeA3KV_oDor-tjHJqIIc4HpH5zft6GOqTBa57P_bCqVI-YVCQsxEuqp05FBqKwOMwBaRgeeDOBk9NsQR8YHcrfG2Cw8E9AEkW4M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<h3 class="text-2xl font-headline text-white mb-2">Греция</h3>
+<p class="text-white/80 text-sm">Лефкада · Киклады</p>
+</div>
+</div>
+<div class="md:col-span-4 relative group overflow-hidden rounded-2xl reveal" style="transition-delay: 300ms">
+<img alt="Хорватия" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6n0ACEV6bvGEZrDHALxBAShzYH0uwb_qhoOVCRDdVfWHyj0BzwBpfcxtSARN8JM3rxOJ9xa5qXEXZyGxvJRun8VYtSh54r27hKRji3OOaVfzyH83_OquXIOsYUSVnBTuCFju_mFqBtAioP0jNNPlE9M40dehJod0asl-5ID3yHhOUngpAsdADCH_KgXphwoGZ4FfhlGFgGqtBZrZCw9uAlXHiTKpIGzhCRGmLTP3oWAivtvpsyEBdpD0i-lwt3vUZltBaiaJEubQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<h3 class="text-2xl font-headline text-white mb-2">Хорватия</h3>
+<p class="text-white/80 text-sm">Сплит · Дубровник</p>
+</div>
+</div>
+<div class="md:col-span-8 relative group overflow-hidden rounded-2xl reveal" style="transition-delay: 450ms">
+<img alt="Италия" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbEHAXT_6H_UA1I7nftK5ORjHuw14h04QTyRaOztFnIPL6SAg8InTDhvCcYoOm54WV12XgzNebUoLfgSraHAuArtTgmPotuHGZSA7BqiNTkHuIZEo6jSdUMOeg1qLxAtOZjLcGlIZe4JGRYCN_1B6WhhwVvpKtIUrTcwkE1gqKKXtCQoePn2RQRwF3MWuOZz3Yqym9OrWRO-wognvO85f6X5xa8uO5MQad6pvgO2VKkLjNmFMbNIv3GEfokMhvSvjN62PsLYz3iig"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<h3 class="text-3xl font-headline text-white mb-2">Италия</h3>
+<p class="text-white/80 text-sm">Сардиния · Сицилия · Амальфи</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ КАТАЛОГ ЯХТ / ONE-STOP SHOP ============ -->
+<section class="py-24 bg-surface-bright overflow-hidden" id="yachts">
+<div class="container mx-auto px-6 md:px-16">
+<div class="grid lg:grid-cols-2 gap-16 items-center reveal">
+<div class="relative">
+<div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative z-10">
+<img alt="Boutique hotel view" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd94l6ZtGqFQDuy_JnCXZYQt4n9hG6zF6mhtVSYs2Kv8jzgFPoSW_TWMUUdywdzbfp6-7q-rtUV1wxsiLClKOJfseqvL1vDLqXOY4IVCFtUQhcXlpfXZ08SQFhYpAgT-3Rlm-3h_WLJMK-00mrRIw3JJvJx_UA7Ryj95WPVXb1gnabE4vi7hC6gzMaf-nVNmDXFQ3caIw1sumOuLBrjOykXlZmV1aAcmE--lyoDrdYSmRKd0S4xqgBaerWqVta0NwumdrVpkNCHfU"/>
+</div>
+<div class="absolute -bottom-10 -right-10 w-64 aspect-square bg-secondary rounded-2xl -z-0 hidden md:block"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-primary/5 rounded-full -z-0"></div>
+</div>
+<div>
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Полный цикл</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary mb-8 leading-tight">One-Stop Shop<br/>для вашего отпуска</h2>
+<p class="text-on-surface-variant text-lg mb-10 leading-relaxed">Не просто лодка — весь сервис под ключ: билеты, трансферы, отели, визы. Мы закрываем все logistical вопросы, вы наслаждаетесь морем.</p>
+<div class="grid grid-cols-2 gap-8 mb-12">
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-secondary/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">directions_boat</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Подбор яхты</h4>
+<p class="text-xs text-on-surface-variant">Проверенный флот 1600+ лодок</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-secondary/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">flight</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Билеты и трансфер</h4>
+<p class="text-xs text-on-surface-variant">Авиа, переезды, встреча в марине</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-secondary/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">hotel</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Отели и визы</h4>
+<p class="text-xs text-on-surface-variant">Размещение, визовая поддержка</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full border border-secondary/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-1">Экипаж</h4>
+<p class="text-xs text-on-surface-variant">Капитаны, хостес, повара</p>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-3 text-primary font-bold group" href="#lead">
+          Оставить заявку на подбор
+          <span class="w-10 h-10 rounded-full border-2 border-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ КОМАНДА ============ -->
+<section class="py-24 bg-surface" id="team">
+<div class="container mx-auto px-6 md:px-16">
+<div class="text-center max-w-3xl mx-auto mb-20 reveal">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Каталог команды</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary mb-6">Капитаны, хостес, повара</h2>
+<p class="text-on-surface-variant text-lg">Проверенные специалисты с реальными милями за плечами. Выбирайте по региону, языку и опыту.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Feature Captain -->
+<a class="group block reveal" href="pages/team.html">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img alt="Капитан Алексей" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClu-qbYfraIjfrKgw7O1rSAQQTKB7qYkmwQ_NQ-s4xUioZbPXtpMXZYE5dLkHPF7yce7Zp36kdGk5Q4tWEJQDXxbKiFxEsLAKnecPVlnBxJK3H9fBnsgn11Or_cLtwnLnjq2v2pPl9m3BXSwKSyY-7Gtr6j9xLLoC0Go4VOeB3MT7ylQ8Tk90vZSz0Sck589vEuZBFVd0StpmYLbsI5WQmNIfXDCtK17QIMa3WXBzseDVkP6Vnw3gVM5DYxaaQwPD44MDyOXQkNjs"/>
+<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary">Капитан</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-xl font-headline text-primary">Алексей Морозов</h3>
+<p class="text-sm text-secondary font-semibold uppercase tracking-tighter">Yacht Master Offshore</p>
+<div class="flex items-center gap-4 pt-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">sailing</span> 45k миль</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">language</span> RU · EN · IT</span>
+</div>
+</div>
+</a>
+<!-- Other team members keep the same light layout -->
+<a class="group block reveal" href="pages/team.html" style="transition-delay: 100ms">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img alt="Хостес Мария" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl2klVPknPUsU6Zmq5a-DEAr8YpHxtUwi3_rEUIaV12vYkDCm4sE5h7pWjs49EKEIMT3tp9VjN6qeMfZFkBAFkW0UWAfAaO0XdWeIs3ieiTRAUglGdoN1BlfeRWjpsTaDvtDio5E6XsQqsbn8ByLBkkYhbiEt4vb2_s-sZ4HIhSv7rUcQJUSa6RzlZCmesqe0s5uquOxD7w0tQRh8Kkr4YGRQmSK0DXFKaeTs470C1tQja3VvI8iriLkZpauaMjUIK3sO05ROxbtU"/>
+<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary">Хостес</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-xl font-headline text-primary">Мария Соколова</h3>
+<p class="text-sm text-secondary font-semibold uppercase tracking-tighter">Chief Stewardess</p>
+<div class="flex items-center gap-4 pt-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">timer</span> 6 сезонов</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">language</span> RU · EN · DE</span>
+</div>
+</div>
+</a>
+<a class="group block reveal" href="pages/team.html" style="transition-delay: 200ms">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img alt="Повар Дмитрий" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB3oynVJJqNLhvrQBpEw8ofw9eR4eTEQGVa6YaMCLXUgLBDgzxhIsmF6D9qkBGIBUQWoM9uEhN2AYtV1AgK6kF6SELhlk9_pshl4RDJjLazBRAlC2Egty91wfvctXpyLwRh1TmDGsNbBa5E0kYIjiTJL19HbN4mJNsejqkqUwrRMVznZf3rBgkYiuPAujZ-ijTJu907ewp_cchBwyFl1N7ooeJ5BkHe_PHmO1WRs8pZaecPYWB9kYjvuYR_6DJuBDelexCuNEBzFw"/>
+<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary">Повар</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-xl font-headline text-primary">Дмитрий Волков</h3>
+<p class="text-sm text-secondary font-semibold uppercase tracking-tighter">Onboard Chef</p>
+<div class="flex items-center gap-4 pt-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">restaurant</span> 8 сезонов</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">language</span> RU · EN · FR</span>
+</div>
+</div>
+</a>
+<a class="group block reveal" href="pages/team.html" style="transition-delay: 300ms">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden mb-6 relative">
+<img alt="Капитан Сергей" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm-dBWbKBQlNq9iPSWc85jxtw3PgN9eEpESjUsPzxNwV0DLXTCc4mhF3rQGlFBJUWwxHp6HgjRHyuiDoHheTI-OQpSuB2IbdIK_jHSGKe3-KKErgTGzqGba9C_Tkg26KRQSaI3bNet5BVyWIbSjqtBSFMutEhQLR1-7Rdg0dg1voLoA3ug88MS41PiYOFALa0U3v5Gr-szX4CLSqAuwcGMpZYnPBKoVPnHM-8MUlWnbXEsH-2LGE0qV6tve1h-4Te9eqEJv0-gg3Y"/>
+<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary">Капитан</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-xl font-headline text-primary">Сергей Петров</h3>
+<p class="text-sm text-secondary font-semibold uppercase tracking-tighter">Master 200 GT</p>
+<div class="flex items-center gap-4 pt-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">sailing</span> 60k миль</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">language</span> RU · EN · ES</span>
+</div>
+</div>
+</a>
+</div>
+<div class="text-center mt-16 reveal">
+<a class="inline-flex items-center px-8 py-3 rounded-xl border border-primary/10 font-bold text-primary hover:bg-primary/5 transition-all" href="pages/team.html">
+        Весь каталог команды →
+      </a>
+</div>
+</div>
+</section>
+<!-- ============ КАЛЕНДАРЬ ТУРОВ (ПРЕВЬЮ) ============ -->
+<section class="py-24 bg-surface-container-lowest" id="tours-preview">
+<div class="container mx-auto px-6 md:px-16">
+<div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 reveal">
+<div class="max-w-xl">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Календарь туров</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary leading-tight">Готовые маршруты<br/>с датами</h2>
+</div>
+<p class="text-on-surface-variant max-w-xs md:text-right">Присоединяйтесь к сборным турам или закажите индивидуальный.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-white rounded-2xl overflow-hidden border border-outline-variant/30 hover:shadow-2xl transition-all reveal group">
+<div class="h-64 relative overflow-hidden">
+<img alt="Хорватия" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcaRl013ecfJF-j2-CGVmWR6YXGS2FGR3Ul8WtMjV7A4aLe5ZY-4STQ-ZRFZqgdOF9XPT3n-jukwcgAtH-evsZFs7L8VcedeyLM8NLGWRJm3myrAYJNfzpRSddDppcfSZG9tG35zCsRLGDT7Lv8q7y_FNKXYF2x85jK2EI8F8lu4h4LqY03URhMx2i8phAZEfAMPQi4pJBID0XrDZ69it57T4hXhionsOpIIuZooZIj_dFdIwqjUJEjRukouuqpqkGfxdWFP2_wM0"/>
+<div class="absolute top-4 left-4 bg-white/95 px-3 py-2 rounded-xl text-center shadow-lg">
+<span class="block text-lg font-bold leading-none text-primary">12</span>
+<span class="block text-[10px] font-bold text-secondary uppercase">Окт</span>
+</div>
+<div class="absolute bottom-4 right-4 bg-primary/80 backdrop-blur px-3 py-1 rounded-full text-white text-[10px] font-bold">
+            ● 4 места
+          </div>
+</div>
+<div class="p-8">
+<div class="flex items-center gap-2 text-secondary text-xs font-bold uppercase mb-3">
+<span class="material-symbols-outlined text-sm">location_on</span>
+            Хорватия · Дубровник
+          </div>
+<h3 class="text-2xl font-headline text-primary mb-4">7 дней под парусами по Далмации</h3>
+<div class="flex flex-wrap gap-4 text-xs text-on-surface-variant mb-6 pb-6 border-b border-outline-variant/30">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">schedule</span> 7 дней</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">directions_boat</span> Катамаран</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="leading-none">
+<span class="text-sm text-on-surface-variant">от</span>
+<span class="text-2xl font-headline text-primary">2 480 €</span>
+</div>
+<a class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-secondary hover:text-on-secondary transition-all" href="pages/tours.html">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-outline-variant/30 hover:shadow-2xl transition-all reveal group" style="transition-delay: 100ms">
+<div class="h-64 relative overflow-hidden">
+<img alt="Турция" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0J5Md7qALbuE74vn0tNb6pOAs6xJyWICZtEsm4i_eMCXAuPLh9DwFzZZZf2kBKa3FRNENphSOnwlIlaS_3WAf6aF6iRQay2KqmUgTwQoav_-esgZvLqISYSzd5y43i1B1gji3OIoII8b3KFenWBWlIF0W2lBeAjtjhAy6ebh1mWFHC2hgBam8NxTmuw6HJJ8qVGPuLB7gX33AxUT5cWWw9s1-Q-qhT9I8_ERg9m_4WaaeMmYaOEC1iVA-aeH0ZasXiqLNrBEoviQ"/>
+<div class="absolute top-4 left-4 bg-white/95 px-3 py-2 rounded-xl text-center shadow-lg">
+<span class="block text-lg font-bold leading-none text-primary">28</span>
+<span class="block text-[10px] font-bold text-secondary uppercase">Окт</span>
+</div>
+<div class="absolute bottom-4 right-4 bg-primary/80 backdrop-blur px-3 py-1 rounded-full text-white text-[10px] font-bold">
+            ● 2 места
+          </div>
+</div>
+<div class="p-8">
+<div class="flex items-center gap-2 text-secondary text-xs font-bold uppercase mb-3">
+<span class="material-symbols-outlined text-sm">location_on</span>
+            Турция · Фетхие
+          </div>
+<h3 class="text-2xl font-headline text-primary mb-4">Закрытие сезона в лагуне</h3>
+<div class="flex flex-wrap gap-4 text-xs text-on-surface-variant mb-6 pb-6 border-b border-outline-variant/30">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">schedule</span> 7 дней</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">directions_boat</span> Парусная</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="leading-none">
+<span class="text-sm text-on-surface-variant">от</span>
+<span class="text-2xl font-headline text-primary">1 980 €</span>
+</div>
+<a class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-secondary hover:text-on-secondary transition-all" href="pages/tours.html">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-outline-variant/30 hover:shadow-2xl transition-all reveal group" style="transition-delay: 200ms">
+<div class="h-64 relative overflow-hidden">
+<img alt="Греция" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDb1jozUnJDOOEIxzbGUdFLTWMgb0lkfv8cd3e0zi7HZNQwIAT1vcUr5QZ_F_mA-8UHeX1KCMeQ1USLEXCD_3BZW6FiCmchf7mkIac6xx-MWPP9ylEMMwIfngRxrbzwS2k77xGIKrTLTW_FAXxOZQ5QAwq4pKREnqWDzOkX4esCcBwdl4W2dhy_GG6CI9GlooswwwNrFBq8OZrHwbB7QAYgXpCF9GDrUdzJmSZAiCELnrSqwg10F1gzSdfny64u9jsFDAqnbhZBM"/>
+<div class="absolute top-4 left-4 bg-white/95 px-3 py-2 rounded-xl text-center shadow-lg">
+<span class="block text-lg font-bold leading-none text-primary">15</span>
+<span class="block text-[10px] font-bold text-secondary uppercase">Ноя</span>
+</div>
+<div class="absolute bottom-4 right-4 bg-primary/80 backdrop-blur px-3 py-1 rounded-full text-white text-[10px] font-bold">
+            ● 6 мест
+          </div>
+</div>
+<div class="p-8">
+<div class="flex items-center gap-2 text-secondary text-xs font-bold uppercase mb-3">
+<span class="material-symbols-outlined text-sm">location_on</span>
+            Греция · Киклады
+          </div>
+<h3 class="text-2xl font-headline text-primary mb-4">Острова богов: Санторини</h3>
+<div class="flex flex-wrap gap-4 text-xs text-on-surface-variant mb-6 pb-6 border-b border-outline-variant/30">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">schedule</span> 10 дней</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">directions_boat</span> Катамаран</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="leading-none">
+<span class="text-sm text-on-surface-variant">от</span>
+<span class="text-2xl font-headline text-primary">3 200 €</span>
+</div>
+<a class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-secondary hover:text-on-secondary transition-all" href="pages/tours.html">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-16 reveal">
+<a class="text-primary font-bold border-b-2 border-secondary/40 pb-1 hover:border-secondary transition-all" href="pages/tours.html">Все туры и даты →</a>
+</div>
+</div>
+</section>
+<!-- ============ ОПЛАТА ============ -->
+<section class="py-24 bg-surface" id="payments">
+<div class="container mx-auto px-6 md:px-16">
+<div class="text-center max-w-3xl mx-auto mb-16 reveal">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Финансовый мост</span>
+<h2 class="text-4xl md:text-5xl font-headline text-primary mb-6 leading-tight">Платите так,<br/>как удобно вам</h2>
+<p class="text-on-surface-variant text-lg">Принимаем любые формы оплаты. Берём на себя валютные и трансграничные сложности.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+<div class="bg-surface-container p-8 rounded-2xl flex flex-col items-center text-center reveal">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<h4 class="font-bold text-primary mb-1">Карты РФ</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Visa · MC · МИР</p>
+</div>
+<div class="bg-surface-container p-8 rounded-2xl flex flex-col items-center text-center reveal" style="transition-delay: 100ms">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">currency_bitcoin</span>
+</div>
+<h4 class="font-bold text-primary mb-1">USDT / Crypto</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">TRC-20 · ERC-20</p>
+</div>
+<div class="bg-surface-container p-8 rounded-2xl flex flex-col items-center text-center reveal" style="transition-delay: 200ms">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h4 class="font-bold text-primary mb-1">Наличные</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">в марине · € / $</p>
+</div>
+<div class="bg-surface-container p-8 rounded-2xl flex flex-col items-center text-center reveal" style="transition-delay: 300ms">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">description</span>
+</div>
+<h4 class="font-bold text-primary mb-1">Прямой инвойс</h4>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">B2B · компании</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ TELEGRAM BANNER ============ -->
+<section class="py-12 bg-surface">
+<div class="container mx-auto px-6 md:px-16">
+<div class="bg-primary rounded-[2.5rem] p-12 md:p-20 relative overflow-hidden reveal">
+<div class="relative z-10 max-w-2xl">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-6 block">Telegram-канал</span>
+<h2 class="text-4xl md:text-5xl font-headline text-white mb-8">Живые предложения<br/>и горящие яхты</h2>
+<p class="text-white/70 text-lg mb-10 leading-relaxed">Каждую неделю — реальные яхты с актуальными ценами, сезонные гайды по направлениям и закулисье чартерного бизнеса. Более 1000 капитанов и яхтсменов уже с нами.</p>
+<a class="inline-flex items-center justify-center gap-3 bg-secondary text-on-secondary px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all" href="https://t.me/charter_yachts" target="_blank">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"></path></svg>
+          Подписаться на канал
+        </a>
+</div>
+<div class="absolute top-1/2 right-[-10%] -translate-y-1/2 opacity-10 hidden lg:block">
+<svg class="w-[600px] h-[600px]" fill="white" viewbox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"></path></svg>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ CTA ============ -->
+<section class="py-32 bg-surface text-center">
+<div class="container mx-auto px-6 max-w-3xl reveal">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Готовы в море?</span>
+<h2 class="text-4xl md:text-6xl font-headline text-primary mb-8 leading-tight">Расскажите о вашей мечте —<br/>мы подберём идеальную яхту</h2>
+<p class="text-on-surface-variant text-lg mb-12">Оставьте заявку, и в течение 2 часов менеджер свяжется с вами с 3–5 вариантами под ваш бюджет и даты.</p>
+<a class="inline-flex items-center justify-center bg-primary text-on-primary px-12 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:translate-y-[-4px] transition-all" href="#lead">
+      Подобрать яхту
+    </a>
+</div>
+</section>
+<!-- ============ FOOTER ============ -->
+<footer class="bg-surface-container-high py-20">
+<div class="container mx-auto px-6 md:px-16">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<div class="md:col-span-1">
+<a class="flex items-center gap-3 mb-8" href="index.html">
+<div class="w-8 h-8">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 40">
+<path d="M20 4L34 32H6L20 4Z" stroke="#735c00" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M20 4V32M20 32L12 38M20 32L28 38" stroke="#735c00" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="20" cy="20" fill="#735c00" r="2"></circle>
+</svg>
+</div>
+<div>
+<span class="text-lg font-bold text-primary block leading-none">all.yachts</span>
+<span class="text-[8px] uppercase tracking-widest text-secondary font-bold">Saila</span>
+</div>
+</a>
+<p class="text-on-surface-variant text-sm leading-relaxed">Профессиональный хаб для аренды яхт. С нами всё будет чётко и без сюрпризов.</p>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Навигация</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#yachts">Подбор яхты</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#team">Команда</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#tours-preview">Календарь туров</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#destinations">Направления</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Клиентам</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#payments">Способы оплаты</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#trust">Почему мы</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#lead">Заявка</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">B2B партнёрам</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-primary mb-6">Контакты</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="https://t.me/charter_yachts" target="_blank">Telegram-канал</a></li>
+<li><a class="hover:text-secondary transition-colors font-bold" href="mailto:hello@all.yachts">hello@all.yachts</a></li>
+<li class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+            Офис в Европе и РФ
+          </li>
+</ul>
+</div>
+</div>
+<div class="pt-10 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-on-surface-variant/50 uppercase tracking-widest">
+<div>© 2026 all.yachts · Saila. Все права защищены.</div>
+<div class="flex items-center gap-2">
+        Сделано с любовью к морю ⚓
+      </div>
+</div>
+</div>
+</footer>
+<script>
+  // Header scroll effect
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      header.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-sm', 'py-3');
+      header.classList.remove('py-4');
+    } else {
+      header.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-sm', 'py-3');
+      header.classList.add('py-4');
+    }
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body></html>

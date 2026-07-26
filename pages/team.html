@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Команда · SAILA all.yachts — Капитаны, хостес, повара</title>
+  <meta name="description" content="Каталог проверенных капитанов, хостес и поваров для чартера яхт. Фильтры по региону, языку и квалификации. Реальные мили и опыт.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Page-specific */
+    .page-hero {
+      padding: 160px 0 60px;
+      background: linear-gradient(180deg, var(--navy-900), var(--navy-800));
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(212,165,116,0.12), transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(212,165,116,0.08), transparent 50%);
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+
+    .filters-bar {
+      background: var(--navy-800);
+      border-top: 1px solid var(--navy-600);
+      border-bottom: 1px solid var(--navy-600);
+      padding: var(--space-md) 0;
+      position: sticky;
+      top: 72px;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+    }
+    .filters-row {
+      display: flex;
+      gap: var(--space-md);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-group { display: flex; gap: var(--space-sm); flex-wrap: wrap; align-items: center; }
+    .filter-group__label {
+      font-size: var(--fs-micro);
+      color: var(--white-50);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-right: var(--space-xs);
+    }
+    .filter-chip {
+      padding: 8px 16px;
+      border: 1px solid var(--white-12);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-small);
+      font-weight: 500;
+      color: var(--white-70);
+      background: transparent;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }
+    .filter-chip:hover { border-color: var(--white-50); color: var(--white); }
+    .filter-chip.active {
+      background: var(--sand-300);
+      border-color: var(--sand-300);
+      color: var(--navy-900);
+    }
+
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+      padding-top: var(--space-xl);
+    }
+    .results-count { font-size: var(--fs-small); color: var(--white-50); }
+    .results-count strong { color: var(--white); }
+
+    /* Подробная карточка специалиста */
+    .specialist-detail {
+      background: var(--navy-700);
+      border: 1px solid var(--navy-600);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-lg);
+    }
+    .specialist-detail__top {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+    }
+    .specialist-detail__photo {
+      aspect-ratio: 3/4;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .specialist-detail__badge {
+      position: absolute;
+      top: var(--space-sm); left: var(--space-sm);
+      background: var(--sand-300);
+      color: var(--navy-900);
+      font-size: var(--fs-micro);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+    }
+    .specialist-detail__info {
+      padding: var(--space-xl);
+    }
+    .specialist-detail__name {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      color: var(--white);
+      margin-bottom: var(--space-xs);
+    }
+    .specialist-detail__role {
+      color: var(--sand-400);
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+    }
+    .specialist-detail__bio {
+      color: var(--white-70);
+      font-size: var(--fs-small);
+      margin-bottom: var(--space-md);
+      line-height: 1.7;
+    }
+    .specialist-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--white-08);
+      border-bottom: 1px solid var(--white-08);
+      margin-bottom: var(--space-md);
+    }
+    .specialist-meta__item .label {
+      font-size: var(--fs-micro);
+      color: var(--white-50);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .specialist-meta__item .value {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      color: var(--sand-300);
+    }
+    .specialist-langs {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+    .lang-pill {
+      padding: 6px 14px;
+      background: var(--white-08);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-micro);
+      font-weight: 600;
+      color: var(--white-90);
+      letter-spacing: 0.05em;
+    }
+    .specialist-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+    .calendar-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      padding: var(--space-md);
+      background: var(--navy-900);
+      border-radius: var(--radius-md);
+    }
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: var(--fs-micro);
+      color: var(--white-50);
+      background: var(--navy-800);
+    }
+    .calendar-day.free { color: var(--success); }
+    .calendar-day.booked { color: var(--white-12); background: transparent; }
+    .calendar-day strong { font-size: var(--fs-small); color: inherit; }
+
+    @media (max-width: 768px) {
+      .specialist-detail__top { grid-template-columns: 1fr; }
+      .specialist-detail__photo { aspect-ratio: 16/10; }
+      .specialist-detail__info { padding: var(--space-md); }
+      .filters-bar { position: relative; top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="../index.html" class="logo">
+        <span class="logo__mark">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 4L34 32H6L20 4Z" stroke="#E8C896" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M20 4V32M20 32L12 38M20 32L28 38" stroke="#E8C896" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="2" fill="#E8C896"/>
+          </svg>
+        </span>
+        <span>all.yachts<span class="logo__sub" style="display:block">Saila</span></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html#yachts" class="nav__link">Подбор яхты</a></li>
+        <li><a href="team.html" class="nav__link">Команда</a></li>
+        <li><a href="tours.html" class="nav__link">Календарь туров</a></li>
+        <li><a href="../index.html#destinations" class="nav__link">Направления</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="../index.html#lead" class="btn btn--primary">Подобрать яхту</a>
+        <button class="nav__toggle" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Каталог команды</span>
+    <h1 style="font-size:var(--fs-h1);color:var(--white);margin-bottom:var(--space-md)">Капитаны, хостес,<br>повара под вашу яхту</h1>
+    <p class="lead" style="max-width:560px">Проверенные специалисты с реальными милями. Каждый профиль — с портфолио, языками и календарём занятости.</p>
+  </div>
+</section>
+
+<!-- FILTERS BAR -->
+<div class="filters-bar">
+  <div class="container">
+    <div class="filters-row">
+      <div class="filter-group">
+        <span class="filter-group__label">Роль</span>
+        <button class="filter-chip active" data-filter="role" data-value="all">Все</button>
+        <button class="filter-chip" data-filter="role" data-value="captain">Капитаны</button>
+        <button class="filter-chip" data-filter="role" data-value="hostess">Хостес</button>
+        <button class="filter-chip" data-filter="role" data-value="chef">Повара</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-group__label">Регион</span>
+        <button class="filter-chip active" data-filter="region" data-value="all">Все</button>
+        <button class="filter-chip" data-filter="region" data-value="mediterranean">Средиземноморье</button>
+        <button class="filter-chip" data-filter="region" data-value="caribbean">Карибы</button>
+        <button class="filter-chip" data-filter="region" data-value="asia">Азия</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-group__label">Язык</span>
+        <button class="filter-chip" data-filter="lang" data-value="ru">🇷🇺 RU</button>
+        <button class="filter-chip" data-filter="lang" data-value="en">🇬🇧 EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM LIST -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="results-bar">
+      <div class="results-count">Показано <strong>8 специалистов</strong> из 42</div>
+      <button class="btn btn--ghost" style="padding:0.6rem 1.2rem;font-size:var(--fs-small)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M7 12h10M11 18h2" stroke-linecap="round"/></svg>
+        По опыту
+      </button>
+    </div>
+
+    <!-- DETAIL CARD EXAMPLE -->
+    <div class="specialist-detail reveal">
+      <div class="specialist-detail__top">
+        <div class="specialist-detail__photo" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80')">
+          <span class="specialist-detail__badge">Капитан</span>
+        </div>
+        <div class="specialist-detail__info">
+          <h2 class="specialist-detail__name">Алексей Морозов</h2>
+          <div class="specialist-detail__role">Yacht Master Offshore · RYA</div>
+          <p class="specialist-detail__bio">
+            15 лет за штурвалом. Прошёл от Балтики до Сейшел. Специализация — парусные яхты 40–55 футов и катамараны в Средиземноморье. Любит маршруты с ночёвками в диких бухтах. Бывший шкипер регаты.
+          </p>
+
+          <div class="specialist-meta">
+            <div class="specialist-meta__item">
+              <div class="label">Мили</div>
+              <div class="value">45 000</div>
+            </div>
+            <div class="specialist-meta__item">
+              <div class="label">Сезонов</div>
+              <div class="value">12</div>
+            </div>
+            <div class="specialist-meta__item">
+              <div class="label">Рейтинг</div>
+              <div class="value">4.9 ★</div>
+            </div>
+            <div class="specialist-meta__item">
+              <div class="label">Чартеров</div>
+              <div class="value">87</div>
+            </div>
+          </div>
+
+          <div class="specialist-langs">
+            <span class="lang-pill">RU — Родной</span>
+            <span class="lang-pill">EN — Fluent</span>
+            <span class="lang-pill">IT — B2</span>
+          </div>
+
+          <!-- Calendar strip -->
+          <div style="margin-bottom:var(--space-md)">
+            <div style="font-size:var(--fs-micro);color:var(--white-50);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-sm)">Занятость · Октябрь 2026</div>
+            <div class="calendar-strip" id="cal1"></div>
+          </div>
+
+          <div class="specialist-actions">
+            <a href="https://t.me/Kval_saila_bot" target="_blank" class="btn btn--primary">Забронировать специалиста</a>
+            <button class="btn btn--ghost">Связаться напрямую</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGULAR CARDS GRID -->
+    <div class="team-grid" style="margin-top:var(--space-xl)">
+      <div class="team-card reveal">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Мария Соколова">
+          <span class="team-card__badge">Хостес</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Мария Соколова</div>
+          <div class="team-card__role">Chief Stewardess</div>
+          <div class="team-card__meta">
+            <span>6 сезонов</span>
+            <span>Хорватия</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · DE</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="Дмитрий Волков">
+          <span class="team-card__badge">Повар</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Дмитрий Волков</div>
+          <div class="team-card__role">Onboard Chef · Michelin exp.</div>
+          <div class="team-card__meta">
+            <span>8 сезонов</span>
+            <span>Италия · Франция</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · FR</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Сергей Петров">
+          <span class="team-card__badge">Капитан</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Сергей Петров</div>
+          <div class="team-card__role">Master 200 GT</div>
+          <div class="team-card__meta">
+            <span>60 000 миль</span>
+            <span>Карибы</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · ES</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="Анна Лебедева">
+          <span class="team-card__badge">Хостес</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Анна Лебедева</div>
+          <div class="team-card__role">Deck/Stew</div>
+          <div class="team-card__meta">
+            <span>4 сезона</span>
+            <span>Турция · Греция</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · TR</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="Игорь Семёнов">
+          <span class="team-card__badge">Капитан</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Игорь Семёнов</div>
+          <div class="team-card__role">Catamaran Specialist</div>
+          <div class="team-card__meta">
+            <span>30 000 миль</span>
+            <span>Сейшелы · Таиланд</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1558898479-e6da9c43c4b5?w=600&q=80" alt="Лука Росси">
+          <span class="team-card__badge">Капитан</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Лука Росси</div>
+          <div class="team-card__role">Local Expert · Италия</div>
+          <div class="team-card__meta">
+            <span>20 лет</span>
+            <span>Сицилия · Сардиния</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">IT · EN · RU</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Елена Кузнецова">
+          <span class="team-card__badge">Повар</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Елена Кузнецова</div>
+          <div class="team-card__role">Pastry & Mediterranean</div>
+          <div class="team-card__meta">
+            <span>5 сезонов</span>
+            <span>Греция · Турция</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · EL</div>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-card__photo">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Никита Орлов">
+          <span class="team-card__badge">Капитан</span>
+        </div>
+        <div class="team-card__body">
+          <div class="team-card__name">Никита Орлов</div>
+          <div class="team-card__role">Sail Instructor</div>
+          <div class="team-card__meta">
+            <span>25 000 миль</span>
+            <span>Хорватия · Черногория</span>
+          </div>
+          <div style="font-size:var(--fs-small);color:var(--graphite-500)">RU · EN · HR</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:var(--space-2xl)" class="reveal">
+      <button class="btn btn--ghost">Показать ещё (34) →</button>
+    </div>
+
+    <!-- CTA: для организаторов -->
+    <div class="tg-banner reveal" style="margin-top:var(--space-3xl)">
+      <div class="tg-banner__content">
+        <span class="eyebrow">B2B экосистема</span>
+        <h2 class="tg-banner__title">Вы капитан<br>или организатор?</h2>
+        <p class="tg-banner__text">Разместите свой профиль в нашем каталоге. Получайте заявки от клиентов, которым нужна именно ваша экспертиза. Бесплатно для проверенных специалистов.</p>
+        <a href="https://t.me/Kval_saila_bot" target="_blank" class="btn btn--primary">Добавить свой профиль</a>
+      </div>
+      <div class="tg-banner__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="../index.html" class="logo">
+          <span class="logo__mark">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M20 4L34 32H6L20 4Z" stroke="#E8C896" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M20 4V32M20 32L12 38M20 32L28 38" stroke="#E8C896" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="20" r="2" fill="#E8C896"/>
+            </svg>
+          </span>
+          <span style="color:var(--white)">all.yachts<span class="logo__sub" style="display:block">Saila</span></span>
+        </a>
+        <p class="footer__brand-text">Профессиональный хаб для аренды яхт. С нами всё будет чётко и без сюрпризов.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="../index.html#yachts">Подбор яхты</a></li>
+          <li><a href="team.html">Команда</a></li>
+          <li><a href="tours.html">Календарь туров</a></li>
+          <li><a href="../index.html#destinations">Направления</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Клиентам</h4>
+        <ul>
+          <li><a href="../index.html#payments">Способы оплаты</a></li>
+          <li><a href="../index.html#trust">Почему мы</a></li>
+          <li><a href="../index.html#lead">Заявка</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="https://t.me/charter_yachts" target="_blank">Telegram-канал</a></li>
+          <li><a href="https://t.me/Kval_saila_bot" target="_blank">Бот подбора</a></li>
+          <li><a href="mailto:hello@all.yachts">hello@all.yachts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>© 2026 all.yachts · Saila. Все права защищены.</div>
+      <div>Сделано с любовью к морю ⚓</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Filter chips toggle
+  document.querySelectorAll('.filter-group').forEach(group => {
+    group.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+  });
+
+  // Calendar strip generation (демо)
+  function buildCalendar(id, bookedDays = []) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    let html = '';
+    for (let i = 1; i <= 31; i++) {
+      const isBooked = bookedDays.includes(i);
+      html += `<div class="calendar-day ${isBooked ? 'booked' : 'free'}"><strong>${i}</strong>${days[(i-1)%7]}</div>`;
+    }
+    el.innerHTML = html;
+  }
+  buildCalendar('cal1', [3,4,5,12,13,14,15,22,23,28,29]);
+</script>
+
+</body>
+</html>
