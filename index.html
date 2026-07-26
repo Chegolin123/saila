@@ -118,12 +118,25 @@
 <a class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-primary-container transition-all" href="#lead">
         Подобрать яхту
       </a>
-<button aria-label="Меню" class="lg:hidden p-2 text-primary">
-<span class="material-symbols-outlined">menu</span>
+<button aria-label="Меню" id="burger-btn" class="lg:hidden p-2 text-primary relative z-50" onclick="toggleMenu()">
+<span class="material-symbols-outlined" id="burger-icon">menu</span>
 </button>
 </div>
 </div>
 </header>
+
+<!-- ============ MOBILE MENU OVERLAY ============ -->
+<div class="fixed inset-0 z-40 bg-surface/95 backdrop-blur-lg hidden flex-col items-center justify-center gap-8 lg:hidden" id="mobile-menu">
+<nav class="flex flex-col items-center gap-6 text-center">
+<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#yachts" onclick="toggleMenu()">Подбор яхты</a>
+<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#team" onclick="toggleMenu()">Команда</a>
+<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#tours-preview" onclick="toggleMenu()">Календарь туров</a>
+<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#destinations" onclick="toggleMenu()">Направления</a>
+<a class="text-xl font-headline text-primary hover:text-secondary transition-colors" href="#payments" onclick="toggleMenu()">Оплата</a>
+<a class="mt-4 inline-flex bg-primary text-on-primary px-8 py-3 rounded-xl text-base font-bold hover:bg-primary-container transition-all" href="#lead" onclick="toggleMenu()">Подобрать яхту</a>
+</nav>
+</div>
+
 <!-- ============ HERO ============ -->
 <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
 <!-- Background Image with Airy Overlay -->
@@ -701,5 +714,22 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(r => observer.observe(r));
+
+  // Mobile menu toggle
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('burger-icon');
+    const isOpen = !menu.classList.contains('hidden');
+    if (isOpen) {
+      menu.classList.add('hidden');
+      icon.textContent = 'menu';
+      document.body.style.overflow = '';
+    } else {
+      menu.classList.remove('hidden');
+      menu.classList.add('flex');
+      icon.textContent = 'close';
+      document.body.style.overflow = 'hidden';
+    }
+  }
 </script>
 </body></html>
