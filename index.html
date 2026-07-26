@@ -719,14 +719,12 @@
   function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
     const icon = document.getElementById('burger-icon');
-    const isOpen = !menu.classList.contains('hidden');
-    if (isOpen) {
-      menu.classList.add('hidden');
+    if (menu.style.display === 'flex') {
+      menu.style.display = 'none';
       icon.textContent = 'menu';
       document.body.style.overflow = '';
     } else {
-      menu.classList.remove('hidden');
-      menu.classList.add('flex');
+      menu.style.display = 'flex';
       icon.textContent = 'close';
       document.body.style.overflow = 'hidden';
     }
